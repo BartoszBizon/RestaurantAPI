@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\barto\\Desktop\\MyProject\\RestaurantsApiProject\\RestaurantAPI\\RestaurantAPI\\RestaurantAPI.csproj": {}
+    "C:\\Users\\barto\\Desktop\\MyProject\\RestaurantAPI\\RestaurantAPI\\RestaurantAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\barto\\Desktop\\MyProject\\RestaurantsApiProject\\RestaurantAPI\\RestaurantAPI\\RestaurantAPI.csproj": {
+    "C:\\Users\\barto\\Desktop\\MyProject\\RestaurantAPI\\RestaurantAPI\\RestaurantAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\barto\\Desktop\\MyProject\\RestaurantsApiProject\\RestaurantAPI\\RestaurantAPI\\RestaurantAPI.csproj",
+        "projectUniqueName": "C:\\Users\\barto\\Desktop\\MyProject\\RestaurantAPI\\RestaurantAPI\\RestaurantAPI.csproj",
         "projectName": "RestaurantAPI",
-        "projectPath": "C:\\Users\\barto\\Desktop\\MyProject\\RestaurantsApiProject\\RestaurantAPI\\RestaurantAPI\\RestaurantAPI.csproj",
+        "projectPath": "C:\\Users\\barto\\Desktop\\MyProject\\RestaurantAPI\\RestaurantAPI\\RestaurantAPI.csproj",
         "packagesPath": "C:\\Users\\barto\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\barto\\Desktop\\MyProject\\RestaurantsApiProject\\RestaurantAPI\\RestaurantAPI\\obj\\",
+        "outputPath": "C:\\Users\\barto\\Desktop\\MyProject\\RestaurantAPI\\RestaurantAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -36,6 +36,9 @@
           }
         },
         "warningProperties": {
+          "noWarn": [
+            "NU1903"
+          ],
           "warnAsError": [
             "NU1605"
           ]

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "aLPug4Rcu6U=",
+  "dgSpecHash": "KP0ENCEtT9Q=",
   "success": true,
-  "projectFilePath": "C:\\Users\\barto\\Desktop\\MyProject\\RestaurantsApiProject\\RestaurantAPI\\RestaurantAPI\\RestaurantAPI.csproj",
+  "projectFilePath": "C:\\Users\\barto\\Desktop\\MyProject\\RestaurantAPI\\RestaurantAPI\\RestaurantAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\barto\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\barto\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
@@ -74,18 +74,5 @@
     "C:\\Users\\barto\\.nuget\\packages\\system.security.permissions\\9.0.0\\system.security.permissions.9.0.0.nupkg.sha512",
     "C:\\Users\\barto\\.nuget\\packages\\system.windows.extensions\\9.0.0\\system.windows.extensions.9.0.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1903",
-      "level": "Warning",
-      "message": "Package 'AutoMapper' 12.0.1 has a known high severity vulnerability, https://github.com/advisories/GHSA-rvv3-g6hj-g44x",
-      "projectPath": "C:\\Users\\barto\\Desktop\\MyProject\\RestaurantsApiProject\\RestaurantAPI\\RestaurantAPI\\RestaurantAPI.csproj",
-      "warningLevel": 1,
-      "filePath": "C:\\Users\\barto\\Desktop\\MyProject\\RestaurantsApiProject\\RestaurantAPI\\RestaurantAPI\\RestaurantAPI.csproj",
-      "libraryId": "AutoMapper",
-      "targetGraphs": [
-        "net10.0"
-      ]
-    }
-  ]
+  "logs": []
 }
