@@ -51,7 +51,7 @@ namespace RestaurantAPI.Services
                   {nameof(Restaurant.Description), x=>x.Description},
                   {nameof(Restaurant.Category), x=>x.Category},
                 };
-                
+
                 var selectedColumn = columnsSelector[query.SortBy];
 
                 baseQuery = query.SortDirection == SortDirection.ASC
@@ -137,6 +137,16 @@ namespace RestaurantAPI.Services
             restaurant.Description = dto.Description;
             restaurant.HasDelivery = dto.HasDelivery;
             _dbContext.SaveChanges();
+        }
+
+        public async IAsyncEnumerable<RestaurantDto> GetRestaurantsByStream()
+        {
+            await foreach (var restaurant in _dbContext.Restaurants)
+            {
+                var restaurantDto = _mapper.Map<RestaurantDto>(restaurant);
+                await Task.Delay(1000);
+                yield return restaurantDto;
+            }
         }
     }
 }

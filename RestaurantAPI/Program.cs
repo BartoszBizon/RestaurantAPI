@@ -17,6 +17,9 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using RestaurantAPI.Authorization;
 using Microsoft.AspNetCore.Authorization;
+using System.Data;
+using Npgsql;
+using RestaurantAPI.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -56,6 +59,7 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("Atleast20", builder => builder.AddRequirements(new MinimumAgeRequirement(20)));
 });
 
+
 builder.Services.AddScoped<IAuthorizationHandler, ResourceOperationRequirementHandler>();
 builder.Services.AddScoped<IAuthorizationHandler, MinimumAgeRequirementHandler>();
 builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
@@ -71,6 +75,7 @@ builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddScoped<IValidator<CreateUserDto>, CreateUserDtoValidator>();
 builder.Services.AddScoped<IUserContextService, UserContextService>();
 builder.Services.AddScoped<IValidator<RestaurantQuery>, RestaurantQueryValidator>();
+builder.Services.AddScoped<RestaurantDapperRepository>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddCors(options =>
 {
@@ -83,8 +88,12 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddDbContext<RestaurantDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("RestaurantDbConnecton"));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("RestaurantDbConnecton"));
 });
+
+builder.Services.AddScoped<IDbConnection>(sp =>
+    new NpgsqlConnection(builder.Configuration.GetConnectionString("RestaurantDbConnecton")));
+
 
 var app = builder.Build();
 

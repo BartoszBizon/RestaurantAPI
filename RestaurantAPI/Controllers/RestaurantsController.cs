@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using RestaurantAPI.Entities;
 using RestaurantAPI.Interfaces;
 using RestaurantAPI.Models;
+using RestaurantAPI.Repositories;
 using RestaurantAPI.Services;
 
 namespace RestaurantAPI.Controllers
@@ -21,10 +22,12 @@ namespace RestaurantAPI.Controllers
     public class RestaurantsController : ControllerBase
     {
         private IRestaurantService _restaurantService;
+        private RestaurantDapperRepository _dapperRepository;
 
-        public RestaurantsController(IRestaurantService restaurantService)
+        public RestaurantsController(IRestaurantService restaurantService, RestaurantDapperRepository dapperRepository)
         {
             _restaurantService = restaurantService;
+            _dapperRepository = dapperRepository;
         }
 
         [HttpGet]
@@ -68,6 +71,26 @@ namespace RestaurantAPI.Controllers
             _restaurantService.UpdateRestaurant(id, dto);
 
             return Ok();
+        }
+
+        [HttpGet("dapper-search-vulnearable")]
+        public ActionResult DapperSearchVulnearable([FromQuery] string searchPhrase)
+        {
+            var result = _dapperRepository.SearchVulnearable(searchPhrase);
+            return Ok(result);
+        }
+
+        [HttpGet("dapper-search-safe")]
+        public ActionResult DapperSearchSafe([FromQuery] string searchPhrase)
+        {
+            var result = _dapperRepository.SearchSafe(searchPhrase);
+            return Ok(result);
+        }
+
+        [HttpGet("restaurant-stream")]
+        public IAsyncEnumerable<RestaurantDto> GetRestaurantStream()
+        {
+            return _restaurantService.GetRestaurantsByStream();
         }
     }
 }

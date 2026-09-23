@@ -15,5 +15,7 @@ namespace RestaurantAPI.Interfaces
         public int CreateRestaurant(CreateRestaurantDto dto);
         public void DeleteRestaurant(int id);
         public void UpdateRestaurant(int id, UpdateRestaurantDto dto);
+
+        public IAsyncEnumerable<RestaurantDto> GetRestaurantsByStream();
     }
 }
