@@ -25,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RestaurantAPI\RestaurantAPI.csproj" />
+    <ProjectReference Include="..\RestaurantAPI.Presentation\RestaurantAPI.Presentation.csproj" />
   </ItemGroup>
 
 </Project>

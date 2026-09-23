@@ -1867,32 +1867,6 @@
           "build/net8.0/xunit.runner.visualstudio.props": {}
         }
       },
-      "RestaurantAPI/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v10.0",
-        "dependencies": {
-          "AutoMapper.Extensions.Microsoft.DependencyInjection": "12.0.1",
-          "Dapper": "2.1.89",
-          "FluentValidation.AspNetCore": "11.3.1",
-          "Microsoft.AspNetCore.Authentication.JwtBearer": "10.0.0",
-          "Microsoft.EntityFrameworkCore": "10.0.12",
-          "Microsoft.EntityFrameworkCore.Design": "10.0.12",
-          "NLog.Web.AspNetCore": "6.2.0",
-          "Npgsql.EntityFrameworkCore.PostgreSQL": "10.0.3",
-          "RestaurantAPI.Application": "1.0.0",
-          "RestaurantAPI.Infrastructure": "1.0.0",
-          "Swashbuckle.AspNetCore": "10.2.3"
-        },
-        "compile": {
-          "bin/placeholder/RestaurantAPI.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/RestaurantAPI.dll": {}
-        },
-        "frameworkReferences": [
-          "Microsoft.AspNetCore.App"
-        ]
-      },
       "RestaurantAPI.Application/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
@@ -1938,6 +1912,32 @@
         "runtime": {
           "bin/placeholder/RestaurantAPI.Infrastructure.dll": {}
         }
+      },
+      "RestaurantAPI.Presentation/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "AutoMapper.Extensions.Microsoft.DependencyInjection": "12.0.1",
+          "Dapper": "2.1.89",
+          "FluentValidation.AspNetCore": "11.3.1",
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "10.0.0",
+          "Microsoft.EntityFrameworkCore": "10.0.12",
+          "Microsoft.EntityFrameworkCore.Design": "10.0.12",
+          "NLog.Web.AspNetCore": "6.2.0",
+          "Npgsql.EntityFrameworkCore.PostgreSQL": "10.0.3",
+          "RestaurantAPI.Application": "1.0.0",
+          "RestaurantAPI.Infrastructure": "1.0.0",
+          "Swashbuckle.AspNetCore": "10.2.3"
+        },
+        "compile": {
+          "bin/placeholder/RestaurantAPI.Presentation.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/RestaurantAPI.Presentation.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
       }
     }
   },
@@ -5346,11 +5346,6 @@
         "xunit.runner.visualstudio.nuspec"
       ]
     },
-    "RestaurantAPI/1.0.0": {
-      "type": "project",
-      "path": "../RestaurantAPI/RestaurantAPI.csproj",
-      "msbuildProject": "../RestaurantAPI/RestaurantAPI.csproj"
-    },
     "RestaurantAPI.Application/1.0.0": {
       "type": "project",
       "path": "../RestaurantAPI.Application/RestaurantAPI.Application.csproj",
@@ -5365,6 +5360,11 @@
       "type": "project",
       "path": "../RestaurantAPI.Infrastructure/RestaurantAPI.Infrastructure.csproj",
       "msbuildProject": "../RestaurantAPI.Infrastructure/RestaurantAPI.Infrastructure.csproj"
+    },
+    "RestaurantAPI.Presentation/1.0.0": {
+      "type": "project",
+      "path": "../RestaurantAPI.Presentation/RestaurantAPI.Presentation.csproj",
+      "msbuildProject": "../RestaurantAPI.Presentation/RestaurantAPI.Presentation.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -5375,7 +5375,7 @@
       "Microsoft.EntityFrameworkCore.InMemory >= 10.0.11",
       "Microsoft.NET.Test.Sdk >= 17.14.1",
       "Moq >= 4.20.72",
-      "RestaurantAPI >= 1.0.0",
+      "RestaurantAPI.Presentation >= 1.0.0",
       "coverlet.collector >= 6.0.4",
       "xunit >= 2.9.3",
       "xunit.runner.visualstudio >= 3.1.4"
@@ -5414,8 +5414,8 @@
           "framework": "net10.0",
           "targetAlias": "net10.0",
           "projectReferences": {
-            "C:\\Users\\barto\\Desktop\\MyProject\\RestaurantAPI\\RestaurantAPI\\RestaurantAPI.csproj": {
-              "projectPath": "C:\\Users\\barto\\Desktop\\MyProject\\RestaurantAPI\\RestaurantAPI\\RestaurantAPI.csproj"
+            "C:\\Users\\barto\\Desktop\\MyProject\\RestaurantAPI\\RestaurantAPI.Presentation\\RestaurantAPI.Presentation.csproj": {
+              "projectPath": "C:\\Users\\barto\\Desktop\\MyProject\\RestaurantAPI\\RestaurantAPI.Presentation\\RestaurantAPI.Presentation.csproj"
             }
           }
         }

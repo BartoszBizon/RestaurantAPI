@@ -52,12 +52,14 @@ namespace RestaurantAPI.Infrastructure
                         new Dish()
                         {
                             Name = "Nashville Hot Chicken",
+                            Description = "Spicy fried chicken breast served with pickles.",
                             Price = 10.30M,
                         },
 
                         new Dish()
                         {
                             Name = "Chicken Nuggets",
+                            Description = "Bite-sized pieces of breaded fried chicken.",
                             Price = 5.30M,
                         },
                     },
@@ -81,12 +83,14 @@ namespace RestaurantAPI.Infrastructure
                         new Dish()
                         {
                             Name = "Big Mac",
+                            Description = "Two beef patties, special sauce, lettuce, cheese, pickles and onions.",
                             Price = 12.50M,
                         },
 
                         new Dish()
                         {
                             Name = "McChicken",
+                            Description = "Crispy chicken fillet with mayonnaise and lettuce in a bun.",
                             Price = 9.90M,
                         },
                     },
