@@ -372,3 +372,4 @@ C:\Users\barto\Desktop\MyProject\RestaurantAPI\RestaurantAPI\bin\Debug\net10.0\R
 C:\Users\barto\Desktop\MyProject\RestaurantAPI\RestaurantAPI\bin\Debug\net10.0\RestaurantAPI.Application.pdb
 C:\Users\barto\Desktop\MyProject\RestaurantAPI\RestaurantAPI\bin\Debug\net10.0\RestaurantAPI.Infrastructure.pdb
 C:\Users\barto\Desktop\MyProject\RestaurantAPI\RestaurantAPI\bin\Debug\net10.0\RestaurantAPI.Domain.pdb
+C:\Users\barto\Desktop\MyProject\RestaurantAPI\RestaurantAPI\bin\Debug\net10.0\Microsoft.Bcl.Cryptography.dll

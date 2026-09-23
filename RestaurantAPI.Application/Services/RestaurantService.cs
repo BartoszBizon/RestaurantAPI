@@ -6,11 +6,11 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using RestaurantAPI.Application.Interfaces;
 using RestaurantAPI.Authorization;
 using RestaurantAPI.Domain.Entities;
 using RestaurantAPI.Exceptions;
-using RestaurantAPI.Infrastructure;
 using RestaurantAPI.Interfaces;
 using RestaurantAPI.Models;
 
@@ -18,17 +18,18 @@ namespace RestaurantAPI.Services
 {
     public class RestaurantService : IRestaurantService
     {
-        private readonly RestaurantDbContext _dbContext;
         private readonly IMapper _mapper;
         private readonly ILogger<RestaurantService> _logger;
         private readonly IAuthorizationService _authorizationService;
 
         private readonly IUserContextService _userContextService;
+        private readonly IRestaurantRepository _restaurantRepository;
 
-        public RestaurantService(RestaurantDbContext dbContext, IMapper mapper, ILogger<RestaurantService> logger,
+        public RestaurantService(IRestaurantRepository restaurantRepository,
+         IMapper mapper, ILogger<RestaurantService> logger,
         IAuthorizationService authorizationService, IUserContextService userContextService)
         {
-            _dbContext = dbContext;
+            _restaurantRepository = restaurantRepository;
             _mapper = mapper;
             _logger = logger;
             _authorizationService = authorizationService;
@@ -37,47 +38,17 @@ namespace RestaurantAPI.Services
 
         public PageResult<RestaurantDto> GetAllRestaurants(RestaurantQuery query)
         {
-            var baseQuery = _dbContext.Restaurants
-            .Include(x => x.Address)
-            .Include(x => x.Dishes)
-            .Where(x => query.SearchPhrase == null ||
-            (x.Name.ToLower().Contains(query.SearchPhrase.ToLower()) ||
-            x.Description.ToLower().Contains(query.SearchPhrase.ToLower())));
-
-            if (!string.IsNullOrEmpty(query.SortBy))
-            {
-                var columnsSelector = new Dictionary<string, Expression<Func<Restaurant, object>>>
-                {
-                  {nameof(Restaurant.Name), x=>x.Name},
-                  {nameof(Restaurant.Description), x=>x.Description},
-                  {nameof(Restaurant.Category), x=>x.Category},
-                };
-
-                var selectedColumn = columnsSelector[query.SortBy];
-
-                baseQuery = query.SortDirection == SortDirection.ASC
-                ? baseQuery.OrderBy(x => x.Name)
-                : baseQuery.OrderByDescending(x => x.Name);
-            }
-
-            var totalItemsCount = baseQuery.Count();
-            var restaurants = baseQuery
-            .Skip(query.PageSize * (query.PageNumber - 1))
-            .Take(query.PageSize)
-            .ToList();
-
-            var restaurantsDto = _mapper.Map<List<RestaurantDto>>(restaurants);
+            var result = _restaurantRepository.GetAllMatching(query);
+            var matchingRestaurants = result.Items;
+            var totalItemsCount = result.TotalCount;
+            var restaurantsDto = _mapper.Map<List<RestaurantDto>>(matchingRestaurants);
             var pageResult = new PageResult<RestaurantDto>(restaurantsDto, totalItemsCount, query.PageSize, query.PageNumber);
             return pageResult;
         }
 
         public RestaurantDto GetRestaurantWithID(int id)
         {
-            var restaurant = _dbContext.Restaurants.Where(x => x.Id == id)
-            .Include(x => x.Address)
-            .Include(x => x.Dishes)
-            .FirstOrDefault();
-
+            var restaurant = _restaurantRepository.GetById(id);
             if (restaurant is null)
                 throw new NotFoundException("Restaurant not found");
 
@@ -91,8 +62,7 @@ namespace RestaurantAPI.Services
         {
             var restaurant = _mapper.Map<Restaurant>(dto);
             restaurant.CreatedById = _userContextService.GetUserId;
-            _dbContext.Restaurants.Add(restaurant);
-            _dbContext.SaveChanges();
+            _restaurantRepository.AddRestaurantToDbContext(restaurant);
 
             return restaurant.Id;
         }
@@ -101,7 +71,7 @@ namespace RestaurantAPI.Services
         {
             _logger.LogError($"Restaurant with id {id} invoked");
 
-            var restaurant = _dbContext.Restaurants.FirstOrDefault(x => x.Id == id);
+            var restaurant = _restaurantRepository.GetById(id);
             if (restaurant is null)
                 throw new NotFoundException("Restaurant not found");
 
@@ -114,14 +84,12 @@ namespace RestaurantAPI.Services
                 throw new ForbidenException("Athorization Fault");
             }
 
-
-            _dbContext.Remove(restaurant);
-            _dbContext.SaveChanges();
+            _restaurantRepository.RemoveRestaurantToDbContext(restaurant);
         }
 
         public void UpdateRestaurant(int id, UpdateRestaurantDto dto)
         {
-            var restaurant = _dbContext.Restaurants.FirstOrDefault(x => x.Id == id);
+            var restaurant = _restaurantRepository.GetById(id);
             if (restaurant is null)
                 throw new NotFoundException("Restaurant not found");
 
@@ -137,12 +105,12 @@ namespace RestaurantAPI.Services
             restaurant.Name = dto.Name;
             restaurant.Description = dto.Description;
             restaurant.HasDelivery = dto.HasDelivery;
-            _dbContext.SaveChanges();
+            _restaurantRepository.SaveChangesOnDbContext();
         }
 
         public async IAsyncEnumerable<RestaurantDto> GetRestaurantsByStream()
         {
-            await foreach (var restaurant in _dbContext.Restaurants)
+            await foreach (var restaurant in _restaurantRepository.GetStreamAllRestaurants())
             {
                 var restaurantDto = _mapper.Map<RestaurantDto>(restaurant);
                 await Task.Delay(1000);

@@ -7,11 +7,10 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using RestaurantAPI.Application.Interfaces;
 using RestaurantAPI.Domain.Entities;
 using RestaurantAPI.Exceptions;
-using RestaurantAPI.Infrastructure;
 using RestaurantAPI.Interfaces;
 using RestaurantAPI.Models;
 
@@ -19,12 +18,12 @@ namespace RestaurantAPI.Services
 {
     public class UserService : IUserService
     {
-        private readonly RestaurantDbContext _dbContext;
+        private readonly IUserRepository _userRepository;
         private readonly IPasswordHasher<User> _passwordHasher;
         private readonly AuthenticationSettings _authenticationSettings;
-        public UserService(RestaurantDbContext dbContext, IPasswordHasher<User> passwordHasher, AuthenticationSettings authenticationSettings)
+        public UserService(IUserRepository userRepository, IPasswordHasher<User> passwordHasher, AuthenticationSettings authenticationSettings)
         {
-            _dbContext = dbContext;
+            _userRepository = userRepository;
             _passwordHasher = passwordHasher;
             _authenticationSettings = authenticationSettings;
         }
@@ -41,16 +40,12 @@ namespace RestaurantAPI.Services
 
             var hashedPassword = _passwordHasher.HashPassword(user, dto.Password);
             user.PasswordHash = hashedPassword;
-            _dbContext.Users.Add(user);
-            _dbContext.SaveChanges();
-
+            _userRepository.AddUserToDbContext(user);
         }
 
         public string GenerateJwt(LoginDto dto)
         {
-            var user = _dbContext.Users
-            .Include(x => x.Role)
-            .FirstOrDefault(x => x.Email.Equals(dto.Email));
+            var user = _userRepository.GetByEmailWithRole(dto.Email);
 
             if (user is null)
             {

@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.EntityFrameworkCore;
+using RestaurantAPI.Application.Interfaces;
 using RestaurantAPI.Domain.Entities;
 using RestaurantAPI.Exceptions;
-using RestaurantAPI.Infrastructure;
 using RestaurantAPI.Interfaces;
 using RestaurantAPI.Models;
 
@@ -14,12 +13,14 @@ namespace RestaurantAPI.Services
 {
     public class DishService : IDishService
     {
-        private readonly RestaurantDbContext _dbContext;
+        private readonly IRestaurantRepository _restaurantRepository;
+        private readonly IDishRepository _dishRepository;
         private readonly IMapper _mapper;
 
-        public DishService(RestaurantDbContext dbContext, IMapper mapper)
+        public DishService(IRestaurantRepository restaurantRepository, IDishRepository dishRepository, IMapper mapper)
         {
-            _dbContext = dbContext;
+            _restaurantRepository = restaurantRepository;
+            _dishRepository = dishRepository;
             _mapper = mapper;
         }
 
@@ -29,8 +30,7 @@ namespace RestaurantAPI.Services
 
             var newDish = _mapper.Map<Dish>(dto);
             newDish.RestaurantId = restaurantId;
-            _dbContext.Dishes.Add(newDish);
-            _dbContext.SaveChanges();
+            _dishRepository.AddDishToDbContext(newDish);
             return newDish.Id;
         }
 
@@ -59,9 +59,7 @@ namespace RestaurantAPI.Services
         public void RemoveAll(int restaurantId)
         {
             var restaurant = GetRestaurantById(restaurantId);
-            var dishes = restaurant.Dishes;
-            _dbContext.Dishes.RemoveRange(dishes);
-            _dbContext.SaveChanges();
+            _dishRepository.RemoveRangeDishesToDbContext(restaurant.Dishes);
         }
 
         public void RemoveById(int restaurantId, int dishId)
@@ -72,15 +70,12 @@ namespace RestaurantAPI.Services
             if (dish is null)
                 throw new NotFoundException("Dish not found");
 
-            _dbContext.Dishes.Remove(dish);
-            _dbContext.SaveChanges();
+            _dishRepository.RemoveDishToDbContext(dish);
         }
 
         private Restaurant GetRestaurantById(int restaurantId)
         {
-            var restaurant = _dbContext.Restaurants
-            .Include(x => x.Dishes)
-            .FirstOrDefault(x => x.Id == restaurantId);
+            var restaurant = _restaurantRepository.GetById(restaurantId);
             if (restaurant is null)
                 throw new NotFoundException("Restaurant not found");
 

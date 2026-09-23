@@ -35,6 +35,7 @@ public class RestaurantServiceTests
                 Name = "Pizza Hut",
                 Description = "Najlepsza pizza w mieście",
                 Category = "Fast Food",
+                ContactEmail = "pizzahut@example.com",
                 Address = new Address() { City = "Kraków", Street = "Testowa 1", PostalCode = "30-001" }
             },
             new RestaurantAPI.Domain.Entities.Restaurant()
@@ -42,6 +43,7 @@ public class RestaurantServiceTests
                 Name = "KFC",
                 Description = "Kurczak",
                 Category = "Fast Food",
+                ContactEmail = "kfc@example.com",
                 Address = new Address() { City = "Warszawa", Street = "Testowa 2", PostalCode = "00-001" }
             }
         );
@@ -55,9 +57,10 @@ public class RestaurantServiceTests
         var logger = NullLogger<RestaurantService>.Instance;
         var authorizationServiceMock = new Mock<IAuthorizationService>();
         var userContextServiceMock = new Mock<IUserContextService>();
+        var repository = new RestaurantRepository(dbContext);
 
         var service = new RestaurantService(
-            dbContext,
+            repository,
             mapper,
             logger,
             authorizationServiceMock.Object,
