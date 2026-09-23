@@ -2,5 +2,8 @@
   <Folder Name="/RestaurantAPI.Tests/">
     <Project Path="RestaurantAPI.Tests/Restaurant.Tests.csproj" />
   </Folder>
+  <Project Path="RestaurantAPI.Application/RestaurantAPI.Application.csproj" />
+  <Project Path="RestaurantAPI.Domain/RestaurantAPI.Domain.csproj" />
+  <Project Path="RestaurantAPI.Infrastructure/RestaurantAPI.Infrastructure.csproj" />
   <Project Path="RestaurantAPI/RestaurantAPI.csproj" />
 </Solution>

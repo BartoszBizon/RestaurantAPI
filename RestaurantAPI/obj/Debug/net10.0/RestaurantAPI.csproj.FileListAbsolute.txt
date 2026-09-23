@@ -366,3 +366,9 @@ C:\Users\barto\Desktop\MyProject\RestaurantAPI\RestaurantAPI\bin\Debug\net10.0\M
 C:\Users\barto\Desktop\MyProject\RestaurantAPI\RestaurantAPI\bin\Debug\net10.0\Npgsql.dll
 C:\Users\barto\Desktop\MyProject\RestaurantAPI\RestaurantAPI\bin\Debug\net10.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
 C:\Users\barto\Desktop\MyProject\RestaurantAPI\RestaurantAPI\bin\Debug\net10.0\Dapper.dll
+C:\Users\barto\Desktop\MyProject\RestaurantAPI\RestaurantAPI\bin\Debug\net10.0\RestaurantAPI.Application.dll
+C:\Users\barto\Desktop\MyProject\RestaurantAPI\RestaurantAPI\bin\Debug\net10.0\RestaurantAPI.Domain.dll
+C:\Users\barto\Desktop\MyProject\RestaurantAPI\RestaurantAPI\bin\Debug\net10.0\RestaurantAPI.Infrastructure.dll
+C:\Users\barto\Desktop\MyProject\RestaurantAPI\RestaurantAPI\bin\Debug\net10.0\RestaurantAPI.Application.pdb
+C:\Users\barto\Desktop\MyProject\RestaurantAPI\RestaurantAPI\bin\Debug\net10.0\RestaurantAPI.Infrastructure.pdb
+C:\Users\barto\Desktop\MyProject\RestaurantAPI\RestaurantAPI\bin\Debug\net10.0\RestaurantAPI.Domain.pdb

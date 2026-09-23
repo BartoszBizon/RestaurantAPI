@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FluentValidation;
 using Microsoft.IdentityModel.Tokens;
+using RestaurantAPI.Domain.Entities;
 using RestaurantAPI.Entities;
 
 namespace RestaurantAPI.Models.Validators

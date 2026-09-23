@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using RestaurantAPI.Domain.Entities;
 using RestaurantAPI.Entities;
 using RestaurantAPI.Models;
 

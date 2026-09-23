@@ -18,4 +18,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="10.2.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\RestaurantAPI.Application\RestaurantAPI.Application.csproj" />
+    <ProjectReference Include="..\RestaurantAPI.Infrastructure\RestaurantAPI.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

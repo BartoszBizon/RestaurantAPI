@@ -991,6 +991,42 @@
             "related": ".xml"
           }
         }
+      },
+      "RestaurantAPI.Application/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "RestaurantAPI.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/RestaurantAPI.Application.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/RestaurantAPI.Application.dll": {}
+        }
+      },
+      "RestaurantAPI.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "compile": {
+          "bin/placeholder/RestaurantAPI.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/RestaurantAPI.Domain.dll": {}
+        }
+      },
+      "RestaurantAPI.Infrastructure/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "RestaurantAPI.Application": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/RestaurantAPI.Infrastructure.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/RestaurantAPI.Infrastructure.dll": {}
+        }
       }
     }
   },
@@ -3196,6 +3232,21 @@
         "system.identitymodel.tokens.jwt.8.0.1.nupkg.sha512",
         "system.identitymodel.tokens.jwt.nuspec"
       ]
+    },
+    "RestaurantAPI.Application/1.0.0": {
+      "type": "project",
+      "path": "../RestaurantAPI.Application/RestaurantAPI.Application.csproj",
+      "msbuildProject": "../RestaurantAPI.Application/RestaurantAPI.Application.csproj"
+    },
+    "RestaurantAPI.Domain/1.0.0": {
+      "type": "project",
+      "path": "../RestaurantAPI.Domain/RestaurantAPI.Domain.csproj",
+      "msbuildProject": "../RestaurantAPI.Domain/RestaurantAPI.Domain.csproj"
+    },
+    "RestaurantAPI.Infrastructure/1.0.0": {
+      "type": "project",
+      "path": "../RestaurantAPI.Infrastructure/RestaurantAPI.Infrastructure.csproj",
+      "msbuildProject": "../RestaurantAPI.Infrastructure/RestaurantAPI.Infrastructure.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -3208,6 +3259,8 @@
       "Microsoft.EntityFrameworkCore.Design >= 10.0.4",
       "NLog.Web.AspNetCore >= 6.2.0",
       "Npgsql.EntityFrameworkCore.PostgreSQL >= 10.0.3",
+      "RestaurantAPI.Application >= 1.0.0",
+      "RestaurantAPI.Infrastructure >= 1.0.0",
       "Swashbuckle.AspNetCore >= 10.2.3"
     ]
   },
@@ -3243,7 +3296,14 @@
         "net10.0": {
           "framework": "net10.0",
           "targetAlias": "net10.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\barto\\Desktop\\MyProject\\RestaurantAPI\\RestaurantAPI.Application\\RestaurantAPI.Application.csproj": {
+              "projectPath": "C:\\Users\\barto\\Desktop\\MyProject\\RestaurantAPI\\RestaurantAPI.Application\\RestaurantAPI.Application.csproj"
+            },
+            "C:\\Users\\barto\\Desktop\\MyProject\\RestaurantAPI\\RestaurantAPI.Infrastructure\\RestaurantAPI.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\barto\\Desktop\\MyProject\\RestaurantAPI\\RestaurantAPI.Infrastructure\\RestaurantAPI.Infrastructure.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

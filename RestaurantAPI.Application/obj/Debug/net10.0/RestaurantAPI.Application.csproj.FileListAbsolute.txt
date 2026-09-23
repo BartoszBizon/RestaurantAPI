@@ -1,0 +1,16 @@
+C:\Users\barto\Desktop\MyProject\RestaurantAPI\RestaurantAPI.Application\bin\Debug\net10.0\RestaurantAPI.Application.deps.json
+C:\Users\barto\Desktop\MyProject\RestaurantAPI\RestaurantAPI.Application\bin\Debug\net10.0\RestaurantAPI.Application.dll
+C:\Users\barto\Desktop\MyProject\RestaurantAPI\RestaurantAPI.Application\bin\Debug\net10.0\RestaurantAPI.Application.pdb
+C:\Users\barto\Desktop\MyProject\RestaurantAPI\RestaurantAPI.Application\bin\Debug\net10.0\RestaurantAPI.Domain.dll
+C:\Users\barto\Desktop\MyProject\RestaurantAPI\RestaurantAPI.Application\bin\Debug\net10.0\RestaurantAPI.Domain.pdb
+C:\Users\barto\Desktop\MyProject\RestaurantAPI\RestaurantAPI.Application\obj\Debug\net10.0\RestaurantAPI.Application.csproj.AssemblyReference.cache
+C:\Users\barto\Desktop\MyProject\RestaurantAPI\RestaurantAPI.Application\obj\Debug\net10.0\RestaurantAPI.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\barto\Desktop\MyProject\RestaurantAPI\RestaurantAPI.Application\obj\Debug\net10.0\RestaurantAPI.Application.AssemblyInfoInputs.cache
+C:\Users\barto\Desktop\MyProject\RestaurantAPI\RestaurantAPI.Application\obj\Debug\net10.0\RestaurantAPI.Application.AssemblyInfo.cs
+C:\Users\barto\Desktop\MyProject\RestaurantAPI\RestaurantAPI.Application\obj\Debug\net10.0\RestaurantAPI.Application.csproj.CoreCompileInputs.cache
+C:\Users\barto\Desktop\MyProject\RestaurantAPI\RestaurantAPI.Application\obj\Debug\net10.0\RestaurantAPI.Application.sourcelink.json
+C:\Users\barto\Desktop\MyProject\RestaurantAPI\RestaurantAPI.Application\obj\Debug\net10.0\Restaura.E0EDCAC1.Up2Date
+C:\Users\barto\Desktop\MyProject\RestaurantAPI\RestaurantAPI.Application\obj\Debug\net10.0\RestaurantAPI.Application.dll
+C:\Users\barto\Desktop\MyProject\RestaurantAPI\RestaurantAPI.Application\obj\Debug\net10.0\refint\RestaurantAPI.Application.dll
+C:\Users\barto\Desktop\MyProject\RestaurantAPI\RestaurantAPI.Application\obj\Debug\net10.0\RestaurantAPI.Application.pdb
+C:\Users\barto\Desktop\MyProject\RestaurantAPI\RestaurantAPI.Application\obj\Debug\net10.0\ref\RestaurantAPI.Application.dll

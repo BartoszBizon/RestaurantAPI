@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging.Abstractions;
 using Moq;
 using RestaurantAPI;
+using RestaurantAPI.Domain.Entities;
 using RestaurantAPI.Entities;
 using RestaurantAPI.Interfaces;
 using RestaurantAPI.Models;
@@ -29,14 +30,14 @@ public class RestaurantServiceTests
         // przypisanego Address, RestaurantService.GetAllRestaurants (który
         // robi .Include(x => x.Address)) po cichu zgubi taką restaurację.
         dbContext.Restaurants.AddRange(
-            new RestaurantAPI.Entities.Restaurant()
+            new RestaurantAPI.Domain.Entities.Restaurant()
             {
                 Name = "Pizza Hut",
                 Description = "Najlepsza pizza w mieście",
                 Category = "Fast Food",
                 Address = new Address() { City = "Kraków", Street = "Testowa 1", PostalCode = "30-001" }
             },
-            new RestaurantAPI.Entities.Restaurant()
+            new RestaurantAPI.Domain.Entities.Restaurant()
             {
                 Name = "KFC",
                 Description = "Kurczak",

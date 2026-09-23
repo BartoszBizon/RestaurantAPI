@@ -20,6 +20,7 @@ using Microsoft.AspNetCore.Authorization;
 using System.Data;
 using Npgsql;
 using RestaurantAPI.Repositories;
+using RestaurantAPI.Domain.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 

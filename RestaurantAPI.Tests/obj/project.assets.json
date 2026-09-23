@@ -1645,6 +1645,8 @@
           "Microsoft.EntityFrameworkCore.Design": "10.0.4",
           "NLog.Web.AspNetCore": "6.2.0",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "10.0.3",
+          "RestaurantAPI.Application": "1.0.0",
+          "RestaurantAPI.Infrastructure": "1.0.0",
           "Swashbuckle.AspNetCore": "10.2.3"
         },
         "compile": {
@@ -1656,6 +1658,42 @@
         "frameworkReferences": [
           "Microsoft.AspNetCore.App"
         ]
+      },
+      "RestaurantAPI.Application/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "RestaurantAPI.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/RestaurantAPI.Application.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/RestaurantAPI.Application.dll": {}
+        }
+      },
+      "RestaurantAPI.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "compile": {
+          "bin/placeholder/RestaurantAPI.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/RestaurantAPI.Domain.dll": {}
+        }
+      },
+      "RestaurantAPI.Infrastructure/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "RestaurantAPI.Application": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/RestaurantAPI.Infrastructure.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/RestaurantAPI.Infrastructure.dll": {}
+        }
       }
     }
   },
@@ -4757,6 +4795,21 @@
       "type": "project",
       "path": "../RestaurantAPI/RestaurantAPI.csproj",
       "msbuildProject": "../RestaurantAPI/RestaurantAPI.csproj"
+    },
+    "RestaurantAPI.Application/1.0.0": {
+      "type": "project",
+      "path": "../RestaurantAPI.Application/RestaurantAPI.Application.csproj",
+      "msbuildProject": "../RestaurantAPI.Application/RestaurantAPI.Application.csproj"
+    },
+    "RestaurantAPI.Domain/1.0.0": {
+      "type": "project",
+      "path": "../RestaurantAPI.Domain/RestaurantAPI.Domain.csproj",
+      "msbuildProject": "../RestaurantAPI.Domain/RestaurantAPI.Domain.csproj"
+    },
+    "RestaurantAPI.Infrastructure/1.0.0": {
+      "type": "project",
+      "path": "../RestaurantAPI.Infrastructure/RestaurantAPI.Infrastructure.csproj",
+      "msbuildProject": "../RestaurantAPI.Infrastructure/RestaurantAPI.Infrastructure.csproj"
     }
   },
   "projectFileDependencyGroups": {
