@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging.Abstractions;
 using Moq;
 using RestaurantAPI;
 using RestaurantAPI.Domain.Entities;
-using RestaurantAPI.Entities;
+using RestaurantAPI.Infrastructure;
 using RestaurantAPI.Interfaces;
 using RestaurantAPI.Models;
 using RestaurantAPI.Services;

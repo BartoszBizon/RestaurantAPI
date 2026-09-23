@@ -2,7 +2,6 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using RestaurantAPI;
-using RestaurantAPI.Entities;
 using RestaurantAPI.Interfaces;
 using RestaurantAPI.Services;
 using NLog.Web;
@@ -12,7 +11,6 @@ using FluentValidation;
 using RestaurantAPI.Models.Validators;
 using RestaurantAPI.Models;
 using FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using RestaurantAPI.Authorization;
@@ -21,6 +19,7 @@ using System.Data;
 using Npgsql;
 using RestaurantAPI.Repositories;
 using RestaurantAPI.Domain.Entities;
+using RestaurantAPI.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 

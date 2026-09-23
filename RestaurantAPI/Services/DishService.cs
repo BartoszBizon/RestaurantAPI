@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using RestaurantAPI.Domain.Entities;
-using RestaurantAPI.Entities;
 using RestaurantAPI.Exceptions;
+using RestaurantAPI.Infrastructure;
 using RestaurantAPI.Interfaces;
 using RestaurantAPI.Models;
 

@@ -5,7 +5,6 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using RestaurantAPI.Domain.Entities;
-using RestaurantAPI.Entities;
 
 namespace RestaurantAPI.Authorization
 {

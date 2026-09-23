@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using RestaurantAPI.Domain.Entities;
 
-namespace RestaurantAPI.Entities
+namespace RestaurantAPI.Infrastructure
 {
     public class RestaurantDbContext : DbContext
     {

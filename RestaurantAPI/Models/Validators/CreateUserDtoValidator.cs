@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FluentValidation;
-using RestaurantAPI.Entities;
+using RestaurantAPI.Infrastructure;
 
 namespace RestaurantAPI.Models.Validators
 {

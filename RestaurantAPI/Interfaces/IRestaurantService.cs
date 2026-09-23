@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using RestaurantAPI.Entities;
 using RestaurantAPI.Models;
 
 namespace RestaurantAPI.Interfaces
