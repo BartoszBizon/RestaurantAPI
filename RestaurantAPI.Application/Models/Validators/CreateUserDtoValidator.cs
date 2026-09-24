@@ -3,13 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FluentValidation;
-using RestaurantAPI.Infrastructure;
+using RestaurantAPI.Application.Interfaces;
+
 
 namespace RestaurantAPI.Models.Validators
 {
     public class CreateUserDtoValidator : AbstractValidator<CreateUserDto>
     {
-        public CreateUserDtoValidator(RestaurantDbContext dbContext)
+        private readonly IUserRepository _userRepository;
+        public CreateUserDtoValidator(IUserRepository userRepository)
+        {
+            _userRepository = userRepository;
+        }
+
+        public CreateUserDtoValidator()
         {
             RuleFor(x => x.Email)
             .NotEmpty()
@@ -24,7 +31,7 @@ namespace RestaurantAPI.Models.Validators
             RuleFor(x => x.Email)
             .Custom((value, context) =>
             {
-                var emailInUse = dbContext.Users.Any(x => x.Email == value);
+                var emailInUse = _userRepository.EmailExists(value);
                 if (emailInUse)
                 {
                     context.AddFailure("Email", "That email is taken");

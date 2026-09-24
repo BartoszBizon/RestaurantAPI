@@ -1,5 +1,4 @@
 //Create WebHost
-using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using RestaurantAPI;
 using RestaurantAPI.Interfaces;
@@ -7,9 +6,6 @@ using RestaurantAPI.Services;
 using NLog.Web;
 using RestaurantAPI.Middleware;
 using Microsoft.AspNetCore.Identity;
-using FluentValidation;
-using RestaurantAPI.Models.Validators;
-using RestaurantAPI.Models;
 using FluentValidation.AspNetCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -21,6 +17,7 @@ using RestaurantAPI.Repositories;
 using RestaurantAPI.Domain.Entities;
 using RestaurantAPI.Infrastructure;
 using RestaurantAPI.Application.Interfaces;
+using RestaurantAPI.Application;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -61,26 +58,20 @@ builder.Services.AddAuthorization(options =>
 });
 
 
+builder.Services.AddApplication();
+builder.Services.AddInfrastructure(builder.Configuration);
+
+
 builder.Services.AddScoped<IAuthorizationHandler, ResourceOperationRequirementHandler>();
 builder.Services.AddScoped<IAuthorizationHandler, MinimumAgeRequirementHandler>();
 builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddScoped<IRestaurantSeeder, RestaurantSeeder>();
-builder.Services.AddScoped<IRestaurantService, RestaurantService>();
-builder.Services.AddAutoMapper(typeof(RestaurantMappingProfile));
+
 builder.Services.AddScoped<ErrorHandlerMiddleware>();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<IDishService, DishService>();
-builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
-builder.Services.AddScoped<IValidator<CreateUserDto>, CreateUserDtoValidator>();
-builder.Services.AddScoped<IUserContextService, UserContextService>();
-builder.Services.AddScoped<IValidator<RestaurantQuery>, RestaurantQueryValidator>();
-builder.Services.AddScoped<RestaurantDapperRepository>();
-builder.Services.AddScoped<IRestaurantRepository, RestaurantRepository>();
-builder.Services.AddScoped<IDishRepository, DishRepository>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddHttpContextAccessor();
+
+
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("FrontEndClient", builder =>
@@ -90,13 +81,8 @@ builder.Services.AddCors(options =>
     .AllowAnyOrigin());
 });
 
-builder.Services.AddDbContext<RestaurantDbContext>(options =>
-{
-    options.UseNpgsql(builder.Configuration.GetConnectionString("RestaurantDbConnecton"));
-});
 
-builder.Services.AddScoped<IDbConnection>(sp =>
-    new NpgsqlConnection(builder.Configuration.GetConnectionString("RestaurantDbConnecton")));
+
 
 
 var app = builder.Build();

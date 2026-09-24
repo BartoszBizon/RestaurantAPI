@@ -26,5 +26,11 @@ namespace RestaurantAPI.Infrastructure
                 .Include(x => x.Role)
                 .FirstOrDefault(x => x.Email.Equals(email));
         }
+
+        public bool EmailExists(string value)
+        {
+            var IsEmailExist = _dbContext.Users.Any(x => x.Email == value);
+            return IsEmailExist;
+        }
     }
 }

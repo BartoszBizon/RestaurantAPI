@@ -6,5 +6,6 @@ namespace RestaurantAPI.Application.Interfaces
     {
         void AddUserToDbContext(User user);
         User GetByEmailWithRole(string email);
+        public bool EmailExists(string value);
     }
 }
