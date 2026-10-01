@@ -18,6 +18,7 @@ using RestaurantAPI.Domain.Entities;
 using RestaurantAPI.Infrastructure;
 using RestaurantAPI.Application.Interfaces;
 using RestaurantAPI.Application;
+using RestaurantAPI.Presentation.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -113,6 +114,7 @@ if (app.Environment.IsDevelopment())
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapUserEndpoints();
 
 app.Run();
 
