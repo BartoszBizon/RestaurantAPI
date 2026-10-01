@@ -9,6 +9,7 @@ using RestaurantAPI.Repositories;
 using RestaurantAPI.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
+using RestaurantAPI.Infrastructure.Messaging;
 
 namespace RestaurantAPI.Infrastructure
 {
@@ -16,6 +17,9 @@ namespace RestaurantAPI.Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
+            services.Configure<RabbitMqSettings>(configuration.GetSection("RabbitMq"));
+            services.AddHostedService<WelcomeEmailConsumer>();
+            services.AddScoped<IMessagePublisher, RabbitMqPublisher>();
             services.AddScoped<IRestaurantRepository, RestaurantRepository>();
             services.AddScoped<IDishRepository, DishRepository>();
             services.AddScoped<IUserRepository, UserRepository>();

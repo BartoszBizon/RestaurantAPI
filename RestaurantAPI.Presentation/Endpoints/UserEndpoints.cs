@@ -14,12 +14,12 @@ namespace RestaurantAPI.Presentation.Endpoints
         {
             var group = app.MapGroup("/api/accounts");
 
-            group.MapPost("/register", (IValidator<CreateUserDto> validator, IUserService userService, CreateUserDto dto) =>
+            group.MapPost("/register", async (IValidator<CreateUserDto> validator, IUserService userService, CreateUserDto dto) =>
             {
                 var result = validator.Validate(dto);
                 if (!result.IsValid) return Results.ValidationProblem(result.ToDictionary());
-                
-                userService.RegisterUser(dto);
+
+                await userService.RegisterUserAsync(dto);
                 return Results.Created();
             });
 

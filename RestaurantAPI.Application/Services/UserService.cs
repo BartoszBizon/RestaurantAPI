@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
+using RestaurantAPI.Application;
 using RestaurantAPI.Application.Interfaces;
 using RestaurantAPI.Domain.Entities;
 using RestaurantAPI.Exceptions;
@@ -21,14 +22,16 @@ namespace RestaurantAPI.Services
         private readonly IUserRepository _userRepository;
         private readonly IPasswordHasher<User> _passwordHasher;
         private readonly AuthenticationSettings _authenticationSettings;
-        public UserService(IUserRepository userRepository, IPasswordHasher<User> passwordHasher, AuthenticationSettings authenticationSettings)
+        private readonly IMessagePublisher _messagePublisher;
+        public UserService(IUserRepository userRepository, IPasswordHasher<User> passwordHasher, AuthenticationSettings authenticationSettings, IMessagePublisher messagePublisher)
         {
             _userRepository = userRepository;
             _passwordHasher = passwordHasher;
             _authenticationSettings = authenticationSettings;
+            _messagePublisher = messagePublisher;
         }
 
-        public void RegisterUser(CreateUserDto dto)
+        public async Task RegisterUserAsync(CreateUserDto dto)
         {
             var user = new User()
             {
@@ -41,6 +44,8 @@ namespace RestaurantAPI.Services
             var hashedPassword = _passwordHasher.HashPassword(user, dto.Password);
             user.PasswordHash = hashedPassword;
             _userRepository.AddUserToDbContext(user);
+            var userRegisteredEvent = new UserRegisteredEvent(user.Email);
+            await _messagePublisher.PublishAsync(userRegisteredEvent, QueueNames.UserRegistered);
         }
 
         public string GenerateJwt(LoginDto dto)

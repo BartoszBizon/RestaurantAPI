@@ -8,7 +8,7 @@ namespace RestaurantAPI.Interfaces
 {
     public interface IUserService
     {
-        public void RegisterUser(CreateUserDto dto);
+        public Task RegisterUserAsync(CreateUserDto dto);
         public string GenerateJwt(LoginDto dto);
     }
 }
