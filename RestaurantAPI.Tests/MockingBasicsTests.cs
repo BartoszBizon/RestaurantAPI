@@ -15,21 +15,30 @@ namespace RestaurantAPI.Tests
     {
 
         [Fact]
-        public void MockForConfiguredInput_ReturnsConfiguredValue()
+        public void Mock_ForConfiguredInput_ReturnsConfiguredValue()
         {
+            // Arrange
             var mock = new Mock<INameGetter>();
             mock.Setup(x => x.GetName("Bartosz")).Returns("Cześć Bartosz");
 
+            // Act
             var result = mock.Object.GetName("Bartosz");
+
+            // Assert
             Assert.Equal("Cześć Bartosz", result);
         }
 
         [Fact]
         public void Mock_ForNotConfiguredInput_ReturnsDefaultValue()
         {
+            // Arrange
             var mock = new Mock<INameGetter>();
             mock.Setup(x => x.GetName("Bartosz")).Returns("Cześć, Bartosz");
+
+            // Act
             var result = mock.Object.GetName("Inna osoba");
+
+            // Assert
             Assert.Null(result);
         }
 
