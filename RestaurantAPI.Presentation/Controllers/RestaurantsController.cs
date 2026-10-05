@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using RestaurantAPI.Application.Features.Restaurants;
+using RestaurantAPI.Application.Mediator;
 using RestaurantAPI.Interfaces;
 using RestaurantAPI.Models;
 using RestaurantAPI.Repositories;
@@ -22,52 +24,52 @@ namespace RestaurantAPI.Controllers
     {
         private IRestaurantService _restaurantService;
         private RestaurantDapperRepository _dapperRepository;
+        private IMediator _mediator;
 
-        public RestaurantsController(IRestaurantService restaurantService, RestaurantDapperRepository dapperRepository)
+        public RestaurantsController(IRestaurantService restaurantService, RestaurantDapperRepository dapperRepository, IMediator mediator)
         {
             _restaurantService = restaurantService;
             _dapperRepository = dapperRepository;
+            _mediator = mediator;
         }
 
         [HttpGet]
         //[Authorize(Policy = "Atleast20")]
-        public ActionResult<IEnumerable<RestaurantDto>> GetAll([FromQuery] RestaurantQuery query)
+        public async Task<ActionResult<PageResult<RestaurantDto>>> GetAll([FromQuery] RestaurantQuery query)
         {
-            var restaurantsDto = _restaurantService.GetAllRestaurants(query);
+            var restaurantsDto = await _mediator.Send(new GetAllRestaurantsQuery(query));
             return Ok(restaurantsDto);
         }
 
         [HttpGet("{id}")]
-        public ActionResult<RestaurantDto> GetRestaurantWithID([FromRoute] int id)
+        public async Task<ActionResult<RestaurantDto>> GetRestaurantWithID([FromRoute] int id)
         {
-            var restaurantDto = _restaurantService.GetRestaurantWithID(id);
-
+            var restaurantDto = await _mediator.Send(new GetRestaurantByIdQuery(id));
             return Ok(restaurantDto);
         }
 
         [HttpPost]
         [Authorize(Roles = "Admin,Manager")]
 
-        public ActionResult CreateRestaurant([FromBody] CreateRestaurantDto dto)
+        public async Task<ActionResult> CreateRestaurant([FromBody] CreateRestaurantDto dto)
         {
-            var userId = int.Parse(User.FindFirst(c => c.Type == ClaimTypes.NameIdentifier).Value);
-            var newRestaurantId = _restaurantService.CreateRestaurant(dto);
+            var newRestaurantId = await _mediator.Send(new CreateRestaurantCommand(dto));
             return Created($"/api/restaurant/{newRestaurantId}", null);
         }
 
 
         [HttpDelete("{id}")]
-        public ActionResult Delete([FromRoute] int id)
+        public async Task<ActionResult> Delete([FromRoute] int id)
         {
-            _restaurantService.DeleteRestaurant(id);
+            await _mediator.Send(new DeleteRestaurantCommand(id));
 
             return NoContent();
         }
 
         [HttpPut("{id}")]
-        public ActionResult Update([FromRoute] int id, [FromBody] UpdateRestaurantDto dto)
+        public async Task<ActionResult> Update([FromRoute] int id, [FromBody] UpdateRestaurantDto dto)
         {
-            _restaurantService.UpdateRestaurant(id, dto);
+            await _mediator.Send(new UpdateRestaurantCommand(id, dto));
 
             return Ok();
         }

@@ -1,11 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using RestaurantAPI.Interfaces;
+using RestaurantAPI.Application.Features.Dishes;
+using RestaurantAPI.Application.Mediator;
 using RestaurantAPI.Models;
-using RestaurantAPI.Services;
 
 namespace RestaurantAPI.Controllers
 {
@@ -13,44 +9,44 @@ namespace RestaurantAPI.Controllers
     [Route("api/{restaurantId}/dish")]
     public class DishController : ControllerBase
     {
-        private readonly IDishService _dishService;
-        public DishController(IDishService dishService)
+        private readonly IMediator _mediator;
+        public DishController(IMediator mediator)
         {
-            _dishService = dishService;
+            _mediator = mediator;
         }
 
         [HttpPost]
-        public ActionResult Post([FromRoute] int restaurantId, [FromBody] CreateDishDto dto)
+        public async Task<ActionResult> Post([FromRoute] int restaurantId, [FromBody] CreateDishDto dto)
         {
-            _dishService.Create(restaurantId, dto);
+            await _mediator.Send(new CreateDishCommand(restaurantId, dto));
             return Created("New dish created", null);
         }
 
         [HttpGet("{dishId}")]
-        public ActionResult<DishDto> Get([FromRoute] int restaurantId, [FromRoute] int dishId)
+        public async Task<ActionResult<DishDto>> Get([FromRoute] int restaurantId, [FromRoute] int dishId)
         {
-            var newDish = _dishService.GetById(restaurantId, dishId);
-            return Ok(newDish);
+            var dish = await _mediator.Send(new GetDishByIdQuery(restaurantId, dishId));
+            return Ok(dish);
         }
 
         [HttpGet]
-        public ActionResult<List<DishDto>> GetAll([FromRoute] int restaurantId)
+        public async Task<ActionResult<List<DishDto>>> GetAll([FromRoute] int restaurantId)
         {
-            var dishDtos = _dishService.GetAll(restaurantId);
+            var dishDtos = await _mediator.Send(new GetAllDishesQuery(restaurantId));
             return Ok(dishDtos);
         }
 
         [HttpDelete]
-        public ActionResult RemoveAll([FromRoute] int restaurantId)
+        public async Task<ActionResult> RemoveAll([FromRoute] int restaurantId)
         {
-            _dishService.RemoveAll(restaurantId);
+            await _mediator.Send(new RemoveAllDishesCommand(restaurantId));
             return NoContent();
         }
 
         [HttpDelete("{dishId}")]
-        public ActionResult RemoveById([FromRoute] int restaurantId, [FromRoute] int dishId)
+        public async Task<ActionResult> RemoveById([FromRoute] int restaurantId, [FromRoute] int dishId)
         {
-            _dishService.RemoveById(restaurantId, dishId);
+            await _mediator.Send(new RemoveDishByIdCommand(restaurantId, dishId));
             return NoContent();
         }
     }

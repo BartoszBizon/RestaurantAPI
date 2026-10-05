@@ -1,9 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using FluentValidation;
-using RestaurantAPI.Interfaces;
+using RestaurantAPI.Application.Features.Users;
+using RestaurantAPI.Application.Mediator;
 using RestaurantAPI.Models;
 
 namespace RestaurantAPI.Presentation.Endpoints
@@ -14,18 +11,18 @@ namespace RestaurantAPI.Presentation.Endpoints
         {
             var group = app.MapGroup("/api/accounts");
 
-            group.MapPost("/register", async (IValidator<CreateUserDto> validator, IUserService userService, CreateUserDto dto) =>
+            group.MapPost("/register", async (IValidator<CreateUserDto> validator, IMediator mediator, CreateUserDto dto) =>
             {
                 var result = validator.Validate(dto);
                 if (!result.IsValid) return Results.ValidationProblem(result.ToDictionary());
 
-                await userService.RegisterUserAsync(dto);
+                await mediator.Send(new RegisterUserCommand(dto));
                 return Results.Created();
             });
 
-            group.MapPost("/login", (IUserService userService, LoginDto dto) =>
+            group.MapPost("/login", async (IMediator mediator, LoginDto dto) =>
             {
-                string token = userService.GenerateJwt(dto);
+                var token = await mediator.Send(new LoginCommand(dto));
                 return Results.Ok(token);
             });
         }
