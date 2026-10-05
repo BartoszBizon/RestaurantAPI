@@ -4,7 +4,7 @@ using RestaurantAPI;
 using RestaurantAPI.Interfaces;
 using RestaurantAPI.Services;
 using NLog.Web;
-using RestaurantAPI.Middleware;
+using RestaurantAPI.Presentation.ExceptionHandlers;
 using Microsoft.AspNetCore.Identity;
 using FluentValidation.AspNetCore;
 using Microsoft.IdentityModel.Tokens;
@@ -68,7 +68,11 @@ builder.Services.AddScoped<IAuthorizationHandler, MinimumAgeRequirementHandler>(
 builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
 builder.Services.AddEndpointsApiExplorer();
 
-builder.Services.AddScoped<ErrorHandlerMiddleware>();
+builder.Services.AddExceptionHandler<NotFoundExceptionHandler>();
+builder.Services.AddExceptionHandler<BadRequestExceptionHandler>();
+builder.Services.AddExceptionHandler<ForbiddenExceptionHandler>();
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
 builder.Services.AddSwaggerGen();
 
 
@@ -101,7 +105,7 @@ using (var scope = app.Services.CreateScope())
 
 
 app.UseCors("FrontEndClient");
-app.UseMiddleware<ErrorHandlerMiddleware>();
+app.UseExceptionHandler();
 app.UseAuthentication();
 app.UseHttpsRedirection();
 
